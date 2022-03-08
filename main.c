@@ -17,6 +17,9 @@ int main( void )
   // Utilize 16MHz clock to maximize baud rate
   DCOCTL  = CALDCO_16MHZ;
   BCSCTL1 = CALBC1_16MHZ;
+  
+  // Run UARt setup
+  UART_setup();
 
   return 0;
 }
