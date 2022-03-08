@@ -13,6 +13,10 @@ int main( void )
 {
   // Stop watchdog timer to prevent time out reset
   WDTCTL = WDTPW + WDTHOLD;
+  
+  // Utilize 16MHz clock to maximize baud rate
+  DCOCTL  = CALDCO_16MHZ;
+  BCSCTL1 = CALBC1_16MHZ;
 
   return 0;
 }
