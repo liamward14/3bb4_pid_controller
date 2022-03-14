@@ -22,5 +22,21 @@ void UART_setup(void){
   UCA0CTL1_bit.UCSWRST = 0;
 }
 
-/*Send 10 bits in 2 char transmissions*/
+/*Send 10 bits in 2 char transmissions per "sample"*/
+void send_ADC10_samples(unsigned short* buff, unsigned char samples){
+  //TODO
+  for(int i=0;i<samples;i++){
+  }
+}
+
+/* Base methods for sending / recieving a char*/
+void pc(unsigned char a){
+  while(!IFG2_bit.UCA0TXIFG); //wait for transmit buffer to empty
+  UCA0TXBUF = a; //push character to transmit buffer
+}
+
+char gc(void){
+  while(!IFG2_bit.UCA0RXIFG); //wait for character recieved
+  return UCA0RXBUF; //empty buffer to caller
+}
 
