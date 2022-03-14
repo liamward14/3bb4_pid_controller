@@ -24,7 +24,7 @@ void init_ADC10(unsigned int mode){
 
 //Subroutine to read ADC data
 void read_ADC10(unsigned short* v, unsigned char samples){
-  //TODO
+  //TODO: test
   //Note: ADC10MEM holds10 bits in 2 bytes of memory (sizeof(unsigned short))
   //Note: 'v' is a pointer to buffer in memory
   //Bit 9 is the MSB (bits 15-10 are always zero)

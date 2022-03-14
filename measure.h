@@ -3,9 +3,10 @@
 
 #define CONTINUOUS_SAMPLING     5
 #define SINGLE_SAMPLE           6
+#define CAPACITY               100
 
 //Read ADC10MEM register into this buffer
-static unsigned short* read_buff[100];
+extern unsigned short* read_buff[CAPACITY];
 
 //Subroutines
 void init_ADC10(unsigned int mode);
