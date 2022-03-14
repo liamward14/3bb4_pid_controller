@@ -2,9 +2,15 @@
 #include "pid.h"
 
 /*Interrupt for MATLAB PID Gain update*/
-#pragma vector = PORT1_VECTOR
-__interrupt void PORT1_ISR(void){ //ISR
+#pragma vector = USCIAB0RX_VECTOR
+__interrupt void USCIRX_ISR(void){ //ISR triggered when character recieved
+  //TODO: Determine appropriate Kp, Ki, Kd values from start and stop codes from matlab
   //TODO: Read values and update them
+  //First: determine parameter type
+  //Second: determine parameter value
+  //When interrupt triggers: read 6 chars
+  //TODO: test whether interrupt flag is reset manually for USCI RX interrupt
+  
 }
 
 /* UART Setup function for Serial Bus communication */
@@ -16,6 +22,9 @@ void UART_setup(void){
   
   // select UART clock source
   UCA0CTL1 = 0xC0;
+  
+  //Enable recieve interrupts for UART interface
+  IE2_bit.UCA0RXIE = 1;
   
   //Set baud rate to baud_rate w/ prescaler value
   // divide by  104 for 9600b with  1MHz clock

@@ -30,6 +30,9 @@ int main( void )
   config_PWM();
   
   //Run PID Loop TODO
+  while(1){
+    //TODO: run PID controller
+  }
   
 
   return 0;
