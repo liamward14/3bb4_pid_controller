@@ -24,6 +24,7 @@ int main( void )
   
   // Intialize ADC10
   init_ADC10(SINGLE_SAMPLE);
+  
 
   return 0;
 }

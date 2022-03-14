@@ -1,5 +1,12 @@
 #include "comms.h"
 
+/*Interrupt for MATLAB PID Gain update*/
+#pragma vector = PORT1_VECTOR
+__interrupt void PORT1_ISR(void){ //ISR
+  //TODO: Read values and update them
+  
+}
+
 /* UART Setup function for Serial Bus communication */
 void UART_setup(void){
   // TODO
@@ -38,5 +45,14 @@ void pc(unsigned char a){
 char gc(void){
   while(!IFG2_bit.UCA0RXIFG); //wait for character recieved
   return UCA0RXBUF; //empty buffer to caller
+}
+
+// Interrupt Capability 
+void setup_interrupt_capability(void){
+  
+  //enable interrupts in general
+  __enable_interrupt();
+  
+  P1IE_bit.P3 = 1; //enable interrupt on RX pin TODO check
 }
 
