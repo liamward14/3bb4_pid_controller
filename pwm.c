@@ -21,7 +21,7 @@ void config_PWM(void){
   TACCR0 = 25000;
   TACCR1 = 0;
   
-  // Note: Intialzing with 100% duty cycle
+  // Note: Intialzing with 38.14% duty cycle
   
   //TODO: test output with scope
 }
