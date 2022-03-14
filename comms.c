@@ -22,3 +22,5 @@ void UART_setup(void){
   UCA0CTL1_bit.UCSWRST = 0;
 }
 
+/*Send 10 bits in 2 char transmissions*/
+

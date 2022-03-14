@@ -7,6 +7,7 @@
 #include "io430.h"
 #include "pid.h"
 #include "comms.h"
+#include "measure.h"
 
 // Entry point
 int main( void )
