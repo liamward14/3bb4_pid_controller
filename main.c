@@ -19,8 +19,11 @@ int main( void )
   DCOCTL  = CALDCO_16MHZ;
   BCSCTL1 = CALBC1_16MHZ;
   
-  // Run UARt setup
+  // Initialize UART interface
   UART_setup();
+  
+  // Intialize ADC10
+  init_ADC10(SINGLE_SAMPLE);
 
   return 0;
 }
