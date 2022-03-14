@@ -8,6 +8,7 @@
 #include "pid.h"
 #include "comms.h"
 #include "measure.h"
+#include "pwm.h"
 
 // Entry point
 int main( void )
@@ -15,15 +16,20 @@ int main( void )
   // Stop watchdog timer to prevent time out reset
   WDTCTL = WDTPW + WDTHOLD;
   
-  // Utilize 16MHz clock to maximize baud rate
-  DCOCTL  = CALDCO_16MHZ;
-  BCSCTL1 = CALBC1_16MHZ;
+  // Utilize 1MHz clock
+  DCOCTL  = CALDCO_1MHZ;
+  BCSCTL1 = CALBC1_1MHZ;
   
   // Initialize UART interface
   UART_setup();
   
   // Intialize ADC10
   init_ADC10(SINGLE_SAMPLE);
+  
+  //Setup PWM
+  config_PWM();
+  
+  //Run PID Loop TODO
   
 
   return 0;
