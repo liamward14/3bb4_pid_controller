@@ -59,7 +59,7 @@ void UART_setup(void){
 void send_ADC10_samples(unsigned short* buff, unsigned char samples){
   //TODO
   for(int i=0;i<samples;i++){
-    
+    //Send ADC10MEM >> 8 (ignore 2 LSB)
   }
 }
 
