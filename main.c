@@ -5,10 +5,14 @@
 */
 
 #include "io430.h"
-#include "pid.h"
 #include "comms.h"
 #include "measure.h"
 #include "pwm.h"
+#include "pid.h"
+
+short Kp = 0;
+short Ki = 0;
+short Kd = 0;
 
 // Entry point
 int main( void )
@@ -23,15 +27,23 @@ int main( void )
   // Initialize UART interface
   UART_setup();
   
+  // Configure interrupts through comms interface
+  setup_interrupt_capability();
+  
   // Intialize ADC10
-  init_ADC10(SINGLE_SAMPLE);
+  //init_ADC10(SINGLE_SAMPLE);
   
   //Setup PWM
-  config_PWM();
+  //config_PWM();
+  
   
   //Run PID Loop TODO
+  int n = 100000;
   while(1){
     //TODO: run PID controller
+    //pc('3');
+    //while(n--);
+    //n = 100000;
   }
   
 

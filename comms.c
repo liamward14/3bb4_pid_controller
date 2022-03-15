@@ -1,5 +1,6 @@
 #include "comms.h"
 #include "pid.h"
+#include "io430.h"
 
 /*Interrupt for MATLAB PID Gain update*/
 #pragma vector = USCIAB0RX_VECTOR
@@ -10,7 +11,14 @@ __interrupt void USCIRX_ISR(void){ //ISR triggered when character recieved
   //Second: determine parameter value
   //When interrupt triggers: read 6 chars
   //TODO: test whether interrupt flag is reset manually for USCI RX interrupt
-  
+  Kp = gc();
+  Kp = Kp + (gc() << 8);
+  Ki = gc();
+  Ki = Ki + (gc() << 8);
+  Kd = gc();
+  Kd = Kd + (gc() << 8);
+  P1OUT_bit.P0 ^= 1; //toggle green LED status
+
 }
 
 /* UART Setup function for Serial Bus communication */
@@ -23,16 +31,13 @@ void UART_setup(void){
   // select UART clock source
   UCA0CTL1 = 0xC0;
   
-  //Enable recieve interrupts for UART interface
-  IE2_bit.UCA0RXIE = 1;
-  
   //Set baud rate to baud_rate w/ prescaler value
   // divide by  104 for 9600b with  1MHz clock
   // divide by 1667 for 9600b with 16MHz clock
   // divide by  139 for 115200b with 16MHz clock
   //unsigned int divider = 16000000/baud_rate;
   UCA0BR1 = 0;
-  UCA0BR0  = 139;
+  UCA0BR0  = 104;
   
   //Release UART control reset bit
   UCA0CTL1_bit.UCSWRST = 0;
@@ -59,9 +64,14 @@ char gc(void){
 // Interrupt Capability 
 void setup_interrupt_capability(void){
   
+  //For testing w/ LED
+  P1DIR_bit.P0 = 1; //green
+  P1OUT_bit.P0 = 0; //init off
+  
   //enable interrupts in general
   __enable_interrupt();
   
-  P1IE_bit.P3 = 1; //enable interrupt on RX pin TODO check
+  //Enable recieve interrupts for UART interface
+  IE2_bit.UCA0RXIE = 1;
 }
 

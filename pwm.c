@@ -1,4 +1,5 @@
 #include "pwm.h"
+#include "io430.h"
 
 void config_PWM(void){
   //Utilize pin 9 (P2.1) on MSP430 for Timer Module
