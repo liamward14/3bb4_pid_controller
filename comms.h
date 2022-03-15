@@ -3,6 +3,7 @@
 
 #define GAIN_UPDATE      'g'
 #define SETPOINT_UPDATE  's'
+#define N               100 //Samples to send per transmission
 
 void UART_setup(void);
 void send_ADC10_samples(unsigned short* buff, unsigned char samples);

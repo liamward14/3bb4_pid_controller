@@ -10,10 +10,12 @@
 #include "pwm.h"
 #include "pid.h"
 
+// Necessary external variable definitions
 short Kp = 0;
 short Ki = 0;
 short Kd = 0;
 short set_point = 0;
+short error = 0;
 
 // Entry point
 int main( void )
@@ -41,9 +43,11 @@ int main( void )
   //Run PID Loop TODO
   while(1){
     //TODO: run PID controller
+    //TODO: Transmit 'N' samples
     //pc('3');
     //while(n--);
     //n = 100000;
+    pid_controller_loop();
   }
   
 

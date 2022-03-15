@@ -7,4 +7,9 @@ short pid_controller_loop(void){
   //Note: if e<0 -> reverse current (H-bridge)
   //Note: de/dt = (dTs-Tprime)/dt = -del_Tprime/del_t
   //Note: average a few of the finite difference derivative points to get less jittery control
+  
+  //First, define error signal
+  T_meas = ADC10MEM >> 2; //TODO: check validity
+  error = set_point - T_meas;
+  
 }
