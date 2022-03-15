@@ -1,4 +1,5 @@
 #include "measure.h"
+#include "io430.h"
 
 //subroutine to intialize the ADC
 void init_ADC10(unsigned int mode){

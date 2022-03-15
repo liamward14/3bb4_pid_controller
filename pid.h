@@ -4,7 +4,9 @@
 extern short Kp;
 extern short Ki;
 extern short Kd;
+extern short set_point;
 
-void update_pid_values(short Kp_arg, short Ki_arg, short Kd_arg);
+// Subroutine to run basic pid control loop
+short pid_controller_loop(void);
 
 #endif

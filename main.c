@@ -13,6 +13,7 @@
 short Kp = 0;
 short Ki = 0;
 short Kd = 0;
+short set_point = 0;
 
 // Entry point
 int main( void )
@@ -38,7 +39,6 @@ int main( void )
   
   
   //Run PID Loop TODO
-  int n = 100000;
   while(1){
     //TODO: run PID controller
     //pc('3');
