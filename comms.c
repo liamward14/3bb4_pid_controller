@@ -11,13 +11,25 @@ __interrupt void USCIRX_ISR(void){ //ISR triggered when character recieved
   //Second: determine parameter value
   //When interrupt triggers: read 6 chars
   //TODO: test whether interrupt flag is reset manually for USCI RX interrupt
-  Kp = gc();
-  Kp = Kp + (gc() << 8);
-  Ki = gc();
-  Ki = Ki + (gc() << 8);
-  Kd = gc();
-  Kd = Kd + (gc() << 8);
-  P1OUT_bit.P0 ^= 1; //toggle green LED status
+  
+  //First, read transmission char to deterimine whether to update gain values or setpoint
+  //Note: bit shifts are to read in 16-bit integer values
+  //Note: gain and setpoint not limited by read indiciators
+  char read = gc();
+  if(read == GAIN_UPDATE){
+      Kp = gc();
+    Kp = Kp + (gc() << 8);
+    Ki = gc();
+    Ki = Ki + (gc() << 8);
+    Kd = gc();
+    Kd = Kd + (gc() << 8);
+  }
+  else if(read == SETPOINT_UPDATE){
+    set_point = gc();
+    set_point = set_point + (gc() << 8); 
+  }
+
+  P1OUT_bit.P0 ^= 1; //toggle green LED status to indicate successful transmission
 
 }
 
@@ -43,10 +55,11 @@ void UART_setup(void){
   UCA0CTL1_bit.UCSWRST = 0;
 }
 
-/*Send 10 bits in 2 char transmissions per "sample"*/
+/*Send 8 bits in 1 char transmissins per "sample" (i.e. ignore 2 LSB)*/
 void send_ADC10_samples(unsigned short* buff, unsigned char samples){
   //TODO
   for(int i=0;i<samples;i++){
+    
   }
 }
 

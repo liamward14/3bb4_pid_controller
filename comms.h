@@ -1,7 +1,8 @@
 #ifndef __COMMS_H__
 #define __COMMS_H__
 
-extern int started;
+#define GAIN_UPDATE      'g'
+#define SETPOINT_UPDATE  's'
 
 void UART_setup(void);
 void send_ADC10_samples(unsigned short* buff, unsigned char samples);
