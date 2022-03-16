@@ -24,12 +24,28 @@ void init_ADC10(unsigned int mode){
 }
 
 //Subroutine to read ADC data
-void read_ADC10(unsigned short* v, unsigned char samples){
+void read_ADC10(unsigned short* v, unsigned char samples, unsigned char start){
   //TODO: test
   //Note: ADC10MEM holds10 bits in 2 bytes of memory (sizeof(unsigned short))
   //Note: 'v' is a pointer to buffer in memory
   //Bit 9 is the MSB (bits 15-10 are always zero)
-  for(int i=0;i<samples;i++){
+  if(start+samples > CAPACITY - 1){
+    //TODO: indicate error
+    //Will encounter out of range error
+    return;
+  }
+  
+  for(int i=start;i<samples+start;i++){
     *(v+i)= ADC10MEM; //buffer option
   }
+}
+
+short avg_buffer(unsigned short* v, unsigned char num_points){
+  //TODO: test
+  short a = 0;
+  for(int i<num_points;i++){
+    a += *(v+i);
+  }
+  a /= num_points;
+  return a;
 }
