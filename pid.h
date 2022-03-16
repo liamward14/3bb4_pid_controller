@@ -10,4 +10,9 @@ extern short error;
 // Subroutine to run basic pid control loop
 short pid_controller_loop(void);
 
+//PID data processing subroutines
+short derivative(unsigned char start_idx);
+short integral(unsigned char start_idx, unsigned char end_idx);
+
+
 #endif

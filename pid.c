@@ -9,7 +9,23 @@ short pid_controller_loop(void){
   //Note: average a few of the finite difference derivative points to get less jittery control
   
   //First, define error signal
-  T_meas = ADC10MEM >> 2; //TODO: check validity
+  //Measure 5 signals and avg. to smooth out noise / errors
+  read_ADC10(read_buff,5);
+  T_meas = avg_buffer(read_buff,5);
   error = set_point - T_meas;
   
+  //Determine Proportional term
+  
+  //Determine Integral term
+  
+  //Determine Derivative term
+  
+}
+
+short derivative(unsigned char start_idx){
+  //TODO
+}
+
+short integral(unsigned char start_idx, unsigned char end_idx){
+  //TODO
 }
