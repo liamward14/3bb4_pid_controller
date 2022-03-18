@@ -32,5 +32,5 @@ void config_PWM(void){
 
 // Scale TimerA pulse width to control PWM
 void change_duty_cycle(char percentage){
-  TA1CCR0 = TA1CCR0 * ((float)percentage/(float)100);
+  TA1CCR0 = (((float)100-(float)percentage)/(float)100)*TAR_MAX;
 }
