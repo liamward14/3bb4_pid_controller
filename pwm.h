@@ -7,6 +7,6 @@
 void config_PWM(void);
 
 //Adjust output voltage during runtime with TACCR0 register value
-void change_duty_cycle(unsigned char percentage);
+void change_duty_cycle(char percentage);
 
 #endif

@@ -4,6 +4,9 @@
 void config_PWM(void){
   //Utilize pin 9 (P2.1) on MSP430 for Timer Module
   
+  //Set to output direction
+  P2DIR = 0xFF;
+  
   // Select primary peripheral function for port 2
   P2SEL2_bit.P1 = 0;
   P2SEL_bit.P1 = 1;
@@ -19,8 +22,8 @@ void config_PWM(void){
   TA1CCTL1 = OUTMOD_3; //Output mode 3 -> set / reset (set of TACCR1, reset on TACCR0)
   
   //Required count -> 25e3 for 25ms pulse width with 1MHz clock
-  TACCR0 = 25000;
-  TACCR1 = 0;
+  TA1CCR1 = 0;
+  TA1CCR0 = 25000;
   
   // Note: Intialzing with 38.14% duty cycle
   
@@ -28,6 +31,6 @@ void config_PWM(void){
 }
 
 // Scale TimerA pulse width to control PWM
-void change_duty_cycle(unsigned char percentage){
-  TACCR0 = (percentage/100)*TAR_MAX;
+void change_duty_cycle(char percentage){
+  TA1CCR0 = TA1CCR0 * ((float)percentage/(float)100);
 }

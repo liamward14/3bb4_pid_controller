@@ -37,17 +37,14 @@ int main( void )
   //init_ADC10(SINGLE_SAMPLE);
   
   //Setup PWM
-  //config_PWM();
+  config_PWM();
   
   
   //Run PID Loop TODO
   while(1){
     //TODO: run PID controller
     //TODO: Transmit 'N' samples
-    //pc('3');
-    //while(n--);
-    //n = 100000;
-    pid_controller_loop();
+    //pid_controller_loop();
   }
   
 

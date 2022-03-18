@@ -10,9 +10,9 @@ void pid_controller_loop(void){
   
   //First, define error signal
   //Measure 5 signals and avg. to smooth out noise / errors
-  read_ADC10(read_buff,5);
-  T_meas = avg_buffer(read_buff,5);
-  error = set_point - T_meas;
+  //read_ADC10(read_buff,5);
+  //T_meas = avg_buffer(read_buff,5);
+  //error = set_point - T_meas;
   
   //Determine Proportional term
   

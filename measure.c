@@ -43,7 +43,7 @@ void read_ADC10(unsigned short* v, unsigned char samples, unsigned char start){
 short avg_buffer(unsigned short* v, unsigned char num_points){
   //TODO: test
   short a = 0;
-  for(int i<num_points;i++){
+  for(int i=0;i<num_points;i++){
     a += *(v+i);
   }
   a /= num_points;

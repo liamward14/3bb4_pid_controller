@@ -16,8 +16,12 @@ __interrupt void USCIRX_ISR(void){ //ISR triggered when character recieved
   //Note: bit shifts are to read in 16-bit integer values
   //Note: gain and setpoint not limited by read indiciators
   char read = gc();
+  
+  //Test: reading set duty cycle percentage
+  change_duty_cycle(read);
+  
   if(read == GAIN_UPDATE){
-      Kp = gc();
+    Kp = gc();
     Kp = Kp + (gc() << 8);
     Ki = gc();
     Ki = Ki + (gc() << 8);
