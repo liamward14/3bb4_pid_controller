@@ -4,6 +4,9 @@
 extern short Kp;
 extern short Ki;
 extern short Kd;
+extern short pe; // proportional error
+extern short ie; // integral error
+extern short de; // derivative error
 extern short set_point;
 extern short error;
 
@@ -11,8 +14,8 @@ extern short error;
 void pid_controller_loop(void);
 
 //PID data processing subroutines
-short derivative(unsigned char start_idx);
-short integral(unsigned char start_idx, unsigned char end_idx);
+short derivative(void);
+short integral(void);
 
 
 #endif

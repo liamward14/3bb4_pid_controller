@@ -8,31 +8,50 @@ void pid_controller_loop(void){
   //Note: de/dt = (dTs-Tprime)/dt = -del_Tprime/del_t
   //Note: average a few of the finite difference derivative points to get less jittery control
   
-  //First, define error signal
-  //Measure 5 signals and avg. to smooth out noise / errors
-  //read_ADC10(read_buff,5);
-  //T_meas = avg_buffer(read_buff,5);
-  //error = set_point - T_meas;
+  /*First, define error signal*/
+  // Measure 40 (N_POINTS) signals and avg. to smooth out noise / errors
+  read_ADC10(temp_read_buff,N_POINTS);
   
-  //Determine Proportional term
+  //Assuming calibration TODO: check
+  // Next, average the read-in values
+  T_meas = avg_buffer(temp_read_buff);
   
-  //Determine Integral term
+  // Define the error signal
+  error = set_point - T_meas;
   
-  //Determine Derivative term
+  // Determine Proportional term
+  pe = Kp*error;
   
+  // Determine Integral term
+  ie = integral()*error;
+  
+  // Determine Derivative term
+  de = derivative*error;
+  
+  // Effect change on thermocooler with PWM interface
+  // TODO
 }
 
-short derivative(unsigned char start_idx){
+short derivative(void){
   //TODO
   // User centered difference approach of past error values
+  // Take derivative of last 'y' points where y == TODO
+  return 0;
 }
 
-short integral(unsigned char start_idx, unsigned char end_idx){
-  //TODO
+short integral(void){
+  //TODO: test
   // Take integral of the stored error functions
   short sum = 0;
-  for(int i=0;i<size;i++){
-    sum += dequeue();
+  if(index < CAPACITY - 1){
+    for(int i=0;i<index;i++){
+      sum += readBuff[i];
+    }
+  }
+  else{
+    for(int i=0;i<CAPACITY-1;i++){
+      sum += readBuff[i];
+    }
   }
   return sum;
 }
