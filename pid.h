@@ -8,7 +8,7 @@ extern short set_point;
 extern short error;
 
 // Subroutine to run basic pid control loop
-short pid_controller_loop(void);
+void pid_controller_loop(void);
 
 //PID data processing subroutines
 short derivative(unsigned char start_idx);
