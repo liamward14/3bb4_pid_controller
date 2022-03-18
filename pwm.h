@@ -3,6 +3,8 @@
 
 #define TAR_MAX 0xFFFF; //(65535)_(10) Max value of TimerA count register -> ued to define duty cycle
 
+// Tested & Working
+
 //Configuration subroutine
 void config_PWM(void);
 

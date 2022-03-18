@@ -5,20 +5,15 @@
 /*Interrupt for MATLAB PID Gain update*/
 #pragma vector = USCIAB0RX_VECTOR
 __interrupt void USCIRX_ISR(void){ //ISR triggered when character recieved
-  //TODO: Determine appropriate Kp, Ki, Kd values from start and stop codes from matlab
-  //TODO: Read values and update them
   //First: determine parameter type
   //Second: determine parameter value
   //When interrupt triggers: read 6 chars
-  //TODO: test whether interrupt flag is reset manually for USCI RX interrupt
   
   //First, read transmission char to deterimine whether to update gain values or setpoint
   //Note: bit shifts are to read in 16-bit integer values
   //Note: gain and setpoint not limited by read indiciators
   char read = gc();
   
-  //Test: reading set duty cycle percentage
-  change_duty_cycle(read);
   
   if(read == GAIN_UPDATE){
     Kp = gc();
