@@ -4,23 +4,27 @@ int front = 0;
 int rear = 0;
 int capacity = NUM_POINTS;
 
-unsigned short peek(){
+short peek(){
   return queueArray[front];
 }
 
-unsigned short dequeue(void){
+short dequeue(void){
   if(isEmpty()){
     return 0; //nothing here
   }
-  unsigned short e = queueArray[front];
+  short e = queueArray[front];
   front = (front+1)%capacity;
   return e;
 }
 
-void enqueue(unsigned short val){
+void enqueue(short val){
   if(!isFull()){
     queueArray[rear] = val;
     rear = (rear+1)%capacity; 
+  }
+  else{ //empty oldest element and put in new one
+    dequeue();
+    enqueue(val);
   }
 }
 
@@ -41,7 +45,7 @@ int getSize(){
   }
 }
 
-//TODO: implement
+// Implemented
 //peek
 //enqueue
 //dequeue

@@ -17,6 +17,11 @@ short Kd = 0;
 short set_point = 0;
 short error = 0;
 
+// To store values for integration and diffrentiation
+short *read_buff[CAPACITY] = {0}; //Init with all zeros
+int front = 0;
+int rear = 0;
+
 // Entry point
 int main( void )
 {

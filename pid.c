@@ -24,8 +24,15 @@ void pid_controller_loop(void){
 
 short derivative(unsigned char start_idx){
   //TODO
+  // User centered difference approach of past error values
 }
 
 short integral(unsigned char start_idx, unsigned char end_idx){
   //TODO
+  // Take integral of the stored error functions
+  short sum = 0;
+  for(int i=0;i<size;i++){
+    sum += dequeue();
+  }
+  return sum;
 }

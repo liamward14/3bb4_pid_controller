@@ -8,15 +8,15 @@
 /*Circular queue implementation*/
 
 //Fxn declarations
-unsigned short peek(void);
-unsigned short dequeue(void);
-void enqueue(unsigned short val);
+short peek(void);
+short dequeue(void);
+void enqueue(short val);
 bool isFull(void);
 bool isEmpty(void);
 int getSize(void);
 
 //Array based data structure
-extern unsigned short queueArray[1];
+//extern short queueArray[pastValues];
 
 //Store front and rear index
 //extern needed to avoid double declaration when header is included in multiple compilation units

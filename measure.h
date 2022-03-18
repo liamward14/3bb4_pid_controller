@@ -6,7 +6,11 @@
 #define CAPACITY               100
 
 //Read ADC10MEM register into this buffer
-extern unsigned short* read_buff[CAPACITY];
+extern short* read_buff[CAPACITY];
+
+// Store index of array
+extern int front;
+extern int read;
 
 //Subroutines
 void init_ADC10(unsigned int mode);
