@@ -17,8 +17,21 @@ void pid_controller_loop(void){
   //Assuming calibration TODO: check
   // Next, average the read-in values
   T_meas = convert_temp(avg_buffer(temp_read_buff));
+  double test = (double)T_meas;
+  char bytes[sizeof(double)];
+  memcpy(bytes,&test,sizeof(double));
   
-  pc(T_meas);
+  /*
+  for(int i=0;i<sizeof(double);i++){
+    pc(bytes[i]);
+  }
+*/
+  
+  //Testing
+  char b[4] = {'a','b','c','d'};
+  for(int i=0;i<4;i++){
+    pc(b[i]);
+  }
 /*
   
   // Define the error signal
