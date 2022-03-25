@@ -7,8 +7,10 @@
 #define SINGLE_SAMPLE           6
 #define CAPACITY               100
 #define N_POINTS               40
+#define VCC                   3.3
 #define VREFP                 2.5
 #define VSS                   0
+#define R1                   10000
 
 //Define measurement
 extern short T_Meas;
@@ -24,7 +26,7 @@ extern int index;
 void init_ADC10(unsigned int mode);
 void read_ADC10(unsigned short* v, unsigned char samples, unsigned char start);
 short avg_buffer(unsigned short* v);
-short convert_temp(short meas); //Convert ADC measurements -> voltage -> temperature
+float convert_temp(float meas); //Convert ADC measurements -> voltage -> temperature
 
 //Read / Access subroutines
 void store(short d);

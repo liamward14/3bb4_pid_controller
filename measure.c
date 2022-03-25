@@ -45,15 +45,18 @@ short avg_buffer(unsigned short* v){
   return a;
 }
 
-short convert_temp(short meas){
+float convert_temp(short meas){
   //TODO: test
   /* Apply calibration curve to convert ADC value->voltage->Temperature */
   
   /* Convert ADC10MEM read to voltage */
-  short voltage = (meas / (short)1023) * (VREFP-VSS) + VSS;
+  float Vmeas = ((float)meas / 1023.0) * (VREFP-VSS) + VSS;
   
-  /* TODO test: Apply calibration curve */
-  short temp = 0.0152*pow(voltage,2)-1.3166*voltage+32.8; 
+  /* Derive thermistor resistance from voltage */
+  float resistance = (Vmeas*R1)/(VCC-Vmeas);
+  
+  /* Apply calibration curve -> derive temperature from resistance */
+  float temp = 0.0152*pow(resistance,2)-1.3166*resistance+32.8; 
   
   /* Return temperature value */
   return temp;
