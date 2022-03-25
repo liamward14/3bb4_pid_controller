@@ -4,10 +4,10 @@
 //subroutine to intialize the ADC
 void init_ADC10(unsigned int mode){
 
-  ADC10CTL0 |= (1 << 13); //Set (0-1.6V or 0-2.5V reference)
-  ADC10CTL0 |= REFON;
-  ADC10CTL0 |= REF2_5V;
-  //ADC10CTL0 &= ~REF2_5V;
+  ADC10CTL0 |= REFON; //Enable internal voltage reference
+  ADC10CTL0 |= (1 << 13); //Utilize V+=VRef and V- = Vss (turn off to use VCC as positive reference)
+  ADC10CTL0 |= REF2_5V; //Set Internal referencetos 2.5 V
+  //ADC10CTL0 &= ~REF2_5V; //Set Internal referencetos 1.5 V
   ADC10AE0 |= BIT4; // enable analog input on channel 4
   ADC10CTL0 |= ADC10SHT0; // set sample & hold time: 16 clock cycles
   if(mode == CONTINUOUS_SAMPLING){ //continuous sampling mode
@@ -15,7 +15,7 @@ void init_ADC10(unsigned int mode){
       ADC10CTL0 |= MSC; // causes sample & conversion to happen automatically after first sample & hold
   }
   else if(mode == SINGLE_SAMPLE){ //single sample -> requires software conversion start every ti
-      ADC10CTL0 |= CONSEQ_0+INCH_4; // Single channel single conversio
+      ADC10CTL0 |= CONSEQ_0+INCH_4; // Single channel single conversion
       ADC10CTL0 &= ~MSC; // causes sample & conversion to happen only after software conversion init
   }
   ADC10CTL0 |= ADC10ON; // turn ADC10 on 
@@ -43,6 +43,20 @@ short avg_buffer(unsigned short* v){
   }
   a /= num_points;
   return a;
+}
+
+short convert_temp(short meas){
+  //TODO: test
+  /* Apply calibration curve to convert ADC value->voltage->Temperature */
+  
+  /* Convert ADC10MEM read to voltage */
+  short voltage = (meas / (short)1023) * (VREFP-VSS) + VSS;
+  
+  /* TODO test: Apply calibration curve */
+  short temp = 0.0152*pow(voltage,2)-1.3166*voltage+32.8; 
+  
+  /* Return temperature value */
+  return temp;
 }
 
 

@@ -45,7 +45,7 @@ int main( void )
   setup_interrupt_capability();
   
   // Intialize ADC10
-  //init_ADC10(SINGLE_SAMPLE);
+  init_ADC10(CONTINUOUS_SAMPLING);
   
   //Setup PWM
   config_PWM();

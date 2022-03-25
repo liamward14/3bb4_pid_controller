@@ -10,11 +10,12 @@ void pid_controller_loop(void){
   
   /*First, define error signal*/
   // Measure 40 (N_POINTS) signals and avg. to smooth out noise / errors
-  read_ADC10(temp_read_buff,N_POINTS);
+  read_ADC10(temp_read_buff);
   
   //Assuming calibration TODO: check
   // Next, average the read-in values
-  T_meas = avg_buffer(temp_read_buff);
+  T_meas = convert_temp(avg_buffer(temp_read_buff));
+  
   
   // Define the error signal
   error = set_point - T_meas;
