@@ -19,10 +19,11 @@ short ie = 0;
 short de = 0;
 short set_point = 0;
 short error = 0;
+short T_meas = 0;
 
 // To store values for integration and diffrentiation
 short* read_buff[CAPACITY] = {0}; //Init with all zeros
-short* temp_read_buff[N_POINTS] = {0};// ""
+short temp_read_buff[N_POINTS] = {0};// ""
 int index = 0;
 
 //Temp init

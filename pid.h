@@ -9,6 +9,7 @@ extern short ie; // integral error
 extern short de; // derivative error
 extern short set_point;
 extern short error;
+extern short T_meas;
 
 // Subroutine to run basic pid control loop
 void pid_controller_loop(void);

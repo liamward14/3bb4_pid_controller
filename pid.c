@@ -1,4 +1,5 @@
 #include "pid.h"
+#include "measure.h"
 
 void pid_controller_loop(void){
   //TODO: adjust signal via (kp*e+kd*del_T/del+ki*int(e,0,t)
@@ -46,16 +47,19 @@ short derivative(void){
 short integral(void){
   //TODO: test
   // Take integral of the stored error functions
+/*
   short sum = 0;
   if(index < CAPACITY - 1){
     for(int i=0;i<index;i++){
-      sum += readBuff[i];
+      sum += read_buff[i];
     }
   }
   else{
     for(int i=0;i<CAPACITY-1;i++){
-      sum += readBuff[i];
+      sum += read_buff[i];
     }
   }
   return sum;
+*/
+  return 0;
 }

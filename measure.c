@@ -24,7 +24,7 @@ void init_ADC10(unsigned int mode){
 }
 
 //Subroutine to read ADC data
-void read_ADC10(unsigned short* v){
+void read_ADC10(short* v){
   //TODO: test
   //Note: ADC10MEM holds10 bits in 2 bytes of memory (sizeof(unsigned short))
   //Note: 'v' is a pointer to buffer in memory
@@ -62,8 +62,3 @@ float convert_temp(short meas){
   return temp;
 }
 
-
-void store(short d){
-  readBuff[index] = d;
-  index = (index) % CAPACITY;
-}
