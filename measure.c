@@ -38,10 +38,10 @@ void read_ADC10(unsigned short* v){
 short avg_buffer(unsigned short* v){
   //TODO: test
   short a = 0;
-  for(int i=0;i<num_points;i++){
+  for(int i=0;i<N_POINTS;i++){
     a += *(v+i);
   }
-  a /= num_points;
+  a /= N_POINTS;
   return a;
 }
 
@@ -56,7 +56,7 @@ float convert_temp(short meas){
   float resistance = (Vmeas*R1)/(VCC-Vmeas);
   
   /* Apply calibration curve -> derive temperature from resistance */
-  float temp = 0.0152*pow(resistance,2)-1.3166*resistance+32.8; 
+  float temp = 0.0446*pow(resistance,2)-3.2772*resistance+56.407;
   
   /* Return temperature value */
   return temp;

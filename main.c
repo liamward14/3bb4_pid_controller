@@ -55,7 +55,7 @@ int main( void )
   while(1){
     //TODO: run PID controller
     //TODO: Transmit 'N' samples
-    //pid_controller_loop();
+    pid_controller_loop();
   }
   
 

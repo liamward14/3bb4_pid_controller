@@ -24,7 +24,7 @@ extern int index;
 
 //Subroutines
 void init_ADC10(unsigned int mode);
-void read_ADC10(unsigned short* v, unsigned char samples, unsigned char start);
+void read_ADC10(unsigned short* v);
 short avg_buffer(unsigned short* v);
 float convert_temp(float meas); //Convert ADC measurements -> voltage -> temperature
 

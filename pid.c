@@ -16,6 +16,8 @@ void pid_controller_loop(void){
   // Next, average the read-in values
   T_meas = convert_temp(avg_buffer(temp_read_buff));
   
+  pc(T_meas);
+/*
   
   // Define the error signal
   error = set_point - T_meas;
@@ -31,6 +33,7 @@ void pid_controller_loop(void){
   
   // Effect change on thermocooler with PWM interface
   // TODO
+*/
 }
 
 short derivative(void){
