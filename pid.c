@@ -1,5 +1,6 @@
 #include "pid.h"
 #include "measure.h"
+#include "comms.h"
 
 void pid_controller_loop(void){
   //TODO: adjust signal via (kp*e+kd*del_T/del+ki*int(e,0,t)

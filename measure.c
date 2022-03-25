@@ -24,7 +24,7 @@ void init_ADC10(unsigned int mode){
 }
 
 //Subroutine to read ADC data
-void read_ADC10(short* v){
+void read_ADC10(float* v){
   //TODO: test
   //Note: ADC10MEM holds10 bits in 2 bytes of memory (sizeof(unsigned short))
   //Note: 'v' is a pointer to buffer in memory
@@ -35,9 +35,9 @@ void read_ADC10(short* v){
   }
 }
 
-short avg_buffer(unsigned short* v){
-  //TODO: test
-  short a = 0;
+float avg_buffer(float* v){
+  // Tested
+  float a = 0;
   for(int i=0;i<N_POINTS;i++){
     a += *(v+i);
   }
@@ -45,15 +45,15 @@ short avg_buffer(unsigned short* v){
   return a;
 }
 
-float convert_temp(short meas){
-  //TODO: test
+float convert_temp(float meas){
+  // Tested
   /* Apply calibration curve to convert ADC value->voltage->Temperature */
   
   /* Convert ADC10MEM read to voltage */
   float Vmeas = ((float)meas / 1023.0) * (VREFP-VSS) + VSS;
   
   /* Derive thermistor resistance from voltage */
-  float resistance = (Vmeas*R1)/(VCC-Vmeas);
+  float resistance = (Vmeas*R1)/(1000.0*(VCC-Vmeas));
   
   /* Apply calibration curve -> derive temperature from resistance */
   float temp = 0.0446*pow(resistance,2)-3.2772*resistance+56.407;
