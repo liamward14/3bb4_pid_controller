@@ -44,53 +44,32 @@ void pid_controller_loop(void){
 */
 }
 
-short derivative(void){
+float derivative(void){
   //TODO
   // User centered difference approach of past error values
   // Take derivative of last 'y' points where y == TODO
  
-  // Initialize Dpointer, pointer, and DT_meas
+  // Initialize DT_meas
   // TODO: Measure the time between T_meas samples
+  float sample_time = 0.001;
   
-  /*
-  int sample_time = 0.001;
+  float DT_meas = 0;
+  DT_meas = (read_buff[CAPACITY-3]-read_buff[CAPACITY-1])/(2*sample_time);
   
-// pointer for where to save the derivative value
-  if point = 0
-    Dpointer = length(T_meas);
-  else
-    Dpointer = pointer - 1;
-  
-// pointer will need to change from 0 to length(T_meas)
-// saves derivative at Dpointer (pointer-1) based on T(point) and T(point-2) 
-// Consider running the sampling a bunch of times before evaluating any derivatives or integrals
-  
-  if pointer < 2
-    DT_meas[Dpointer] = (T_meas[pointer]-T_meas[length(T_meas)+pointer-1])/(2*sample_time);
-  else
-    DT_meas[Dpointer] = (T_meas[pointer]-T_meas[pointer-2])/(2*sample_time);
-  */
-  return 0;
+  return DT_meas;
+
 }
 
 short integral(void){
   //TODO: test
   // Take integral of the stored error functions
-/*
-  short sum = 0;
-  if(index < CAPACITY - 1){
-    for(int i=0;i<index;i++){
-      sum += read_buff[i];
-    }
+
+  int Int_meas = 0;
+  for (int i = 0; i < CAPACITY; ++i){
+    Int_meas = Int_meas + read_buff[i];
   }
-  else{
-    for(int i=0;i<CAPACITY-1;i++){
-      sum += read_buff[i];
-    }
-  }
-  return sum;
-*/
-  return 0;
+  
+  return Int_meas;
 }
 
 void circshift_single_insert(int* array, int element, int size){
@@ -105,3 +84,4 @@ void circshift_single_insert(int* array, int element, int size){
   array[size-1] = element;
   
 }
+
