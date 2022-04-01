@@ -13,7 +13,7 @@
 #define R1                   10000
 
 //Define measurement
-extern float T_Meas;
+extern int T_meas; // milli deg C
 
 //Read ADC10MEM register into this buffer
 extern float read_buff[CAPACITY]; //to store past values
@@ -26,7 +26,7 @@ extern int index;
 void init_ADC10(unsigned int mode);
 void read_ADC10(float* v);
 float avg_buffer(float* v);
-float convert_temp(float meas); //Convert ADC measurements -> voltage -> temperature
+int convert_temp(float meas); //Convert ADC measurements -> voltage -> temperature
 
 //Read / Access subroutines
 

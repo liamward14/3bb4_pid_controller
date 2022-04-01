@@ -17,9 +17,8 @@ short Kd = 0;
 short pe = 0;
 short ie = 0;
 short de = 0;
-float set_point = 0;
+float set_point = 30;
 float error = 0;
-float T_meas = 0;
 
 // To store values for integration and diffrentiation
 float read_buff[CAPACITY] = {0}; //Init with all zeros
@@ -27,11 +26,14 @@ float temp_read_buff[N_POINTS] = {0};// ""
 int index = 0;
 
 //Temp init
-float T_Meas = 0;
+int T_meas = 0;
 
 // Entry point
 int main( void )
 {
+  //TODO; remove (for testing)
+  //srand(time(NULL));
+  
   // Stop watchdog timer to prevent time out reset
   WDTCTL = WDTPW + WDTHOLD;
   
@@ -56,10 +58,18 @@ int main( void )
   while(1){
     //TODO: run PID controller
     //TODO: Transmit 'N' samples
-    pid_controller_loop();
+    //pid_controller_loop();
+    
+    //read_buff[i];
+    
+    for (int i = 0; i < CAPACITY; ++i){
+    read_buff[i] = i;
+  }
+    derivative();
+    integral();
+    
   }
   
-
   return 0;
 }
 
