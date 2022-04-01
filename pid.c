@@ -18,13 +18,13 @@ void pid_controller_loop(void){
   T_meas = convert_temp(avg_buffer(temp_read_buff));
   
   /* Send 2 bytes corresponding to 16 bit int storing temp in milli deg C */
-  //For testing: generate random number between 0 and 9
-  //int r = rand() % 10;
-  //T_meas += r; //todo: remove (just for testing)
-  
   for(int i=0;i<sizeof(T_meas);i++){
     pc(T_meas >> (i*8));
   }
+  
+  /* Store measured temperature (milliC) in storage array */
+  circshift_single_insert(temp_read_buff, T_meas, CAPACITY);
+
 /*
   
   // Define the error signal

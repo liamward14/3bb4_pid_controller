@@ -22,7 +22,7 @@ float error = 0;
 
 // To store values for integration and diffrentiation
 float read_buff[CAPACITY] = {0}; //Init with all zeros
-float temp_read_buff[N_POINTS] = {0};// ""
+int temp_read_buff[N_POINTS] = {0};// ""
 int index = 0;
 
 //Temp init
