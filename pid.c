@@ -42,6 +42,26 @@ short derivative(void){
   //TODO
   // User centered difference approach of past error values
   // Take derivative of last 'y' points where y == TODO
+ 
+  // Initialize Dpointer, pointer, and DT_meas
+  // TODO: Measure the time between T_meas samples
+  int sample_time = 0.001;
+  
+// pointer for where to save the derivative value
+  if point = 0
+    Dpointer = length(T_meas);
+  else
+    Dpointer = pointer - 1;
+  
+// pointer will need to change from 0 to length(T_meas)
+// saves derivative at Dpointer (pointer-1) based on T(point) and T(point-2) 
+// Consider running the sampling a bunch of times before evaluating any derivatives or integrals
+  
+  if pointer < 2
+    DT_meas[Dpointer] = (T_meas[pointer]-T_meas[length(T_meas)+pointer-1])/(2*sample_time);
+  else
+    DT_meas[Dpointer] = (T_meas[pointer]-T_meas[pointer-2])/(2*sample_time);
+  
   return 0;
 }
 
