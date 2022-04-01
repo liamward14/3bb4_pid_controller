@@ -17,7 +17,7 @@ short Kd = 0;
 short pe = 0;
 short ie = 0;
 short de = 0;
-float set_point = 0;
+float set_point = 30;
 float error = 0;
 
 // To store values for integration and diffrentiation
@@ -32,7 +32,7 @@ int T_meas = 0;
 int main( void )
 {
   //TODO; remove (for testing)
-  srand(time(NULL));
+  //srand(time(NULL));
   
   // Stop watchdog timer to prevent time out reset
   WDTCTL = WDTPW + WDTHOLD;
