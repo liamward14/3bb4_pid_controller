@@ -11,12 +11,13 @@
 #include "pid.h"
 
 // Necessary external variable definitions
-short Kp = 0;
-short Ki = 0;
-short Kd = 0;
-short pe = 0;
-short ie = 0;
-short de = 0;
+//TODO: change
+int Kp = 10;
+int Ki = 1;
+int Kd = 1;
+float pe = 0;
+float ie = 0;
+float de = 0;
 float set_point = 30;
 float error = 0;
 
@@ -56,20 +57,9 @@ int main( void )
   
   //Run PID Loop TODO
   while(1){
-    //TODO: run PID controller
-    //TODO: Transmit 'N' samples
-    //pid_controller_loop();
-    
-    //read_buff[i];
-    
-    for (int i = 0; i < CAPACITY; ++i){
-    read_buff[i] = i;
+    //run PID controller
+    pid_controller_loop();
   }
-    derivative();
-    integral();
-    
-  }
-  
   return 0;
 }
 

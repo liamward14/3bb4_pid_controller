@@ -59,14 +59,14 @@ int convert_temp(float meas){
   float temp = 0.0446*pow(resistance,2)-3.2772*resistance+56.407;
   
   // For testting: TODO remove
-  float temp_test = 23.56;
+  //float temp_test = 23.56;
   
   /* Convert to millidegC to use integer send only */
   //TODO: remove testing code
-  int temp_i = temp_test*1000;
+  //int temp_i = temp_test*1000;
   
   /* Return temperature value */
   //TODO: remove testing code
-  return temp_i;
+  return (int)(temp*1000);
 }
 

@@ -3,9 +3,11 @@
 
 #include "math.h"
 
+//Measures from PIN 1.4
+
 #define CONTINUOUS_SAMPLING     5
 #define SINGLE_SAMPLE           6
-#define CAPACITY               100
+#define CAPACITY               80
 #define N_POINTS               40
 #define VCC                   3.3
 #define VREFP                 2.5
@@ -16,7 +18,7 @@
 extern int T_meas; // milli deg C
 
 //Read ADC10MEM register into this buffer
-extern float read_buff[CAPACITY]; //to store past values 
+extern float read_buff[CAPACITY]; //to store past values (of error)
 extern int temp_read_buff[N_POINTS]; //to compute avg value on every loop (milliC)
 
 // Store index of array
