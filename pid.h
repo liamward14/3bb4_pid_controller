@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define MAX_ERROR
+
 extern int Kp;
 extern int Ki;
 extern int Kd;

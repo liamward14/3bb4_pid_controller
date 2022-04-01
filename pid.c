@@ -17,10 +17,26 @@ void pid_controller_loop(void){
   // Next, average the read-in values & apply calibration
   T_meas = convert_temp(avg_buffer(temp_read_buff));
   
-  /* Send 2 bytes corresponding to 16 bit int storing temp in milli deg C */
-  for(int i=0;i<sizeof(T_meas);i++){
-    pc(T_meas >> (i*8));
+  //Assign byte to negative indication
+  //char neg = 0x0;
+  if(T_meas < 0){ return; }
+  //pc(neg);
+  
+  //Transmit absolute value of T_meas
+  //T_meas = abs(T_meas);
+  
+  /* Send 2 bytes corresponding to 16 bit int storing temp in milli deg C if MATLAB is ready */
+  char read;
+  if(ready_to_write){ 
+    for(int i=0;i<sizeof(T_meas);i++){
+      read = T_meas >> (i*8);
+      //pc(T_meas >> (i*8));
+      pc(read);
+    }
+    ready_to_write = 0;
   }
+  
+
   
   // Define the error signal
   error = (set_point*1000) - (float)T_meas;
@@ -40,7 +56,7 @@ void pid_controller_loop(void){
   // Effect change on thermocooler with PWM interface
   error = pe + ie + de;
   
-  // TODO
+  // TODO pwm
 
 }
 

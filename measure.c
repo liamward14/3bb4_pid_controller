@@ -57,16 +57,19 @@ int convert_temp(float meas){
   
   /* Apply calibration curve -> derive temperature from resistance */
   float temp = 0.0446*pow(resistance,2)-3.2772*resistance+56.407;
-  
+  //temp *= 1000.0;
   // For testting: TODO remove
   //float temp_test = 23.56;
   
   /* Convert to millidegC to use integer send only */
   //TODO: remove testing code
   //int temp_i = temp_test*1000;
+  int temp_i = (int)temp;
   
   /* Return temperature value */
   //TODO: remove testing code
+  //return temp_i;
   return (int)(temp*1000);
+
 }
 

@@ -18,8 +18,9 @@ int Kd = 1;
 float pe = 0;
 float ie = 0;
 float de = 0;
-float set_point = 30;
+float set_point = 43;
 float error = 0;
+int ready_to_write = 0;
 
 // To store values for integration and diffrentiation
 float read_buff[CAPACITY] = {0}; //Init with all zeros

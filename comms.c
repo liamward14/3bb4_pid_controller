@@ -14,8 +14,11 @@ __interrupt void USCIRX_ISR(void){ //ISR triggered when character recieved
   //Note: gain and setpoint not limited by read indiciators
   char read = gc();
   
-  
-  if(read == GAIN_UPDATE){
+  if(read == READY){
+    //todo
+    ready_to_write = 1;
+  }
+  else if(read == GAIN_UPDATE){
     Kp = gc();
     Kp = Kp + (gc() << 8);
     Ki = gc();
