@@ -58,7 +58,16 @@ int main( void )
   while(1){
     //TODO: run PID controller
     //TODO: Transmit 'N' samples
-    pid_controller_loop();
+    //pid_controller_loop();
+    
+    //read_buff[i];
+    
+    for (int i = 0; i < CAPACITY; ++i){
+    read_buff[i] = i;
+  }
+    derivative();
+    integral();
+    
   }
   
   return 0;

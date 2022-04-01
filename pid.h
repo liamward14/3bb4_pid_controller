@@ -17,9 +17,9 @@ extern float error;
 void pid_controller_loop(void);
 
 //PID data processing subroutines
-short derivative(void);
+float derivative(void);
 short integral(void);
-void circshift(short* array, index);
+//void circshift(short* array, index);
 
 
 #endif
