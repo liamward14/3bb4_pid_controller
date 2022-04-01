@@ -16,18 +16,15 @@ void pid_controller_loop(void){
   
   // Next, average the read-in values & apply calibration
   T_meas = convert_temp(avg_buffer(temp_read_buff));
-  double test = (double)T_meas;
-  char bytes[sizeof(double)];
-  memcpy(bytes,&test,sizeof(double));
   
   /* Send 2 bytes corresponding to 16 bit int storing temp in milli deg C */
-  //For testing: generate random number between 0 and 9
-  //int r = rand() % 10;
-  //T_meas += r; //todo: remove (just for testing)
-  
   for(int i=0;i<sizeof(T_meas);i++){
     pc(T_meas >> (i*8));
   }
+  
+  /* Store measured temperature (milliC) in storage array */
+  circshift_single_insert(temp_read_buff, T_meas, CAPACITY);
+
 /*
   
   // Define the error signal
@@ -60,6 +57,7 @@ float derivative(void){
   DT_meas = (read_buff[CAPACITY-3]-read_buff[CAPACITY-1])/(2*sample_time);
   
   return DT_meas;
+
 }
 
 short integral(void){
@@ -73,11 +71,17 @@ short integral(void){
   
   return Int_meas;
 }
-/*
-void circshift(short* array, index){
-  // index > 0 -> shift right
-  // index < 0 -> shift left
-  if(!index){ return; }
-  //TODO
+
+void circshift_single_insert(int* array, int element, int size){
+    //TODO: test
+
+  //iterate from 0-(length-2)
+  for(int i=0;i<size-1;i++){
+    array[i] = array[i+1]; //left shift
+  }
+  
+  // Assign element
+  array[size-1] = element;
+  
 }
-*/
+

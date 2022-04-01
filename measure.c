@@ -24,7 +24,7 @@ void init_ADC10(unsigned int mode){
 }
 
 //Subroutine to read ADC data
-void read_ADC10(float* v){
+void read_ADC10(int* v){
   //TODO: test
   //Note: ADC10MEM holds10 bits in 2 bytes of memory (sizeof(unsigned short))
   //Note: 'v' is a pointer to buffer in memory
@@ -35,7 +35,7 @@ void read_ADC10(float* v){
   }
 }
 
-float avg_buffer(float* v){
+float avg_buffer(int* v){
   // Tested
   float a = 0;
   for(int i=0;i<N_POINTS;i++){

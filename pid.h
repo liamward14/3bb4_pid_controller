@@ -19,7 +19,7 @@ void pid_controller_loop(void);
 //PID data processing subroutines
 float derivative(void);
 short integral(void);
-//void circshift(short* array, index);
+void circshift_single_insert(int* array, int element, int size);
 
 
 #endif
