@@ -16,9 +16,6 @@ void pid_controller_loop(void){
   
   // Next, average the read-in values & apply calibration
   T_meas = convert_temp(avg_buffer(temp_read_buff));
-  double test = (double)T_meas;
-  char bytes[sizeof(double)];
-  memcpy(bytes,&test,sizeof(double));
   
   /* Send 2 bytes corresponding to 16 bit int storing temp in milli deg C */
   //For testing: generate random number between 0 and 9
@@ -54,6 +51,8 @@ short derivative(void){
  
   // Initialize Dpointer, pointer, and DT_meas
   // TODO: Measure the time between T_meas samples
+  
+  /*
   int sample_time = 0.001;
   
 // pointer for where to save the derivative value
@@ -70,7 +69,7 @@ short derivative(void){
     DT_meas[Dpointer] = (T_meas[pointer]-T_meas[length(T_meas)+pointer-1])/(2*sample_time);
   else
     DT_meas[Dpointer] = (T_meas[pointer]-T_meas[pointer-2])/(2*sample_time);
-  
+  */
   return 0;
 }
 
@@ -94,9 +93,15 @@ short integral(void){
   return 0;
 }
 
-void circshift(short* array, index){
-  // index > 0 -> shift right
-  // index < 0 -> shift left
-  if(!index){ return; }
-  //TODO
+void circshift_single_insert(int* array, int element, int size){
+    //TODO: test
+
+  //iterate from 0-(length-2)
+  for(int i=0;i<size-1;i++){
+    array[i] = array[i+1]; //left shift
+  }
+  
+  // Assign element
+  array[size-1] = element;
+  
 }
