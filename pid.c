@@ -19,7 +19,7 @@ void pid_controller_loop(void){
   
   //Assign byte to negative indication
   //char neg = 0x0;
-  if(T_meas < 0){ return; }
+  //if(T_meas < 0){ return; }
   //pc(neg);
   
   //Transmit absolute value of T_meas
