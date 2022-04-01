@@ -31,6 +31,9 @@ int T_meas = 0;
 // Entry point
 int main( void )
 {
+  //TODO; remove (for testing)
+  srand(time(NULL));
+  
   // Stop watchdog timer to prevent time out reset
   WDTCTL = WDTPW + WDTHOLD;
   
