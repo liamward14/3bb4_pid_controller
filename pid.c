@@ -14,11 +14,13 @@ void pid_controller_loop(void){
   // Measure 40 (N_POINTS) signals and avg. to smooth out noise / errors
   read_ADC10(temp_read_buff);
   
-  //Assuming calibration TODO: check
-  // Next, average the read-in values
+  // Next, average the read-in values & apply calibration
   T_meas = convert_temp(avg_buffer(temp_read_buff));
   
-  pc(T_meas);
+  /* Send 2 bytes corresponding to 16 bit int storing temp in milli deg C */
+  for(int i=0;i<sizeof(T_meas);i++){
+    pc(T_meas >> (i*8));
+  }
 /*
   
   // Define the error signal

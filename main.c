@@ -19,7 +19,6 @@ short ie = 0;
 short de = 0;
 float set_point = 0;
 float error = 0;
-float T_meas = 0;
 
 // To store values for integration and diffrentiation
 float read_buff[CAPACITY] = {0}; //Init with all zeros
@@ -27,7 +26,7 @@ float temp_read_buff[N_POINTS] = {0};// ""
 int index = 0;
 
 //Temp init
-float T_Meas = 0;
+int T_meas = 0;
 
 // Entry point
 int main( void )
