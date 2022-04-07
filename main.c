@@ -13,8 +13,8 @@
 // Necessary external variable definitions
 //TODO: change
 int Kp = 10;
-int Ki = 1;
-int Kd = 1;
+int Ki = 0;
+int Kd = 0;
 float pe = 0;
 float ie = 0;
 float de = 0;

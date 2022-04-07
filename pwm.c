@@ -22,7 +22,7 @@ void config_PWM(void){
   //Note: TAR register contains counter of Timer_A
   //Note: When TAR == TACCR1, OUT1 is set (HIGH), when TAR == TACCR0, OUT1 is reset (LOW)
   //Note: Control pulse width with (TACCR0-TACCR1)/frequency (TACCR0 IS higher)
-  TA1CCTL1 = OUTMOD_7; //Output mode 3 -> set / reset (set of TACCR1, reset on TACCR0)
+  TA1CCTL1 = OUTMOD_3; //Output mode 3 -> set / reset (set of TACCR1, reset on TACCR0)
   
   //Required count -> 25e3 for 25ms pulse width with 1MHz clock
   TA1CCR1 = 0;
@@ -35,9 +35,10 @@ void config_PWM(void){
 
 // Scale TimerA pulse width to control PWM
 void change_duty_cycle(int percentage){
-  if(percentage < 0){
-    percentage = 0;
+  percentage = abs(percentage);
+  long p = (percentage*65520)/100;
+  if(p < 10){
+    p = 10;
   }
-  long p = ((100-percentage)*65535)/100;
   TA1CCR0 = p;
 }
