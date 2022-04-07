@@ -1,5 +1,6 @@
 #ifndef __COMMS_H__
 #define __COMMS_H__
+#include <stdint.h>
 
 #define GAIN_UPDATE      'g'
 #define SETPOINT_UPDATE  's'
@@ -7,7 +8,7 @@
 #define SAMPLES              100 //Samples to send per transmission
 
 //vars
-extern int ready_to_write;
+extern uint8_t ready_to_write;
 
 //subroutines
 void UART_setup(void);

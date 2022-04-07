@@ -18,9 +18,10 @@ int Kd = 1;
 float pe = 0;
 float ie = 0;
 float de = 0;
-float set_point = 43;
+float set_point = 30;
 float error = 0;
-int ready_to_write = 0;
+uint8_t ready_to_write = 0;
+int MAX_ERROR = 0; 
 
 // To store values for integration and diffrentiation
 float read_buff[CAPACITY] = {0}; //Init with all zeros
@@ -28,13 +29,14 @@ int temp_read_buff[N_POINTS] = {0};// ""
 int index = 0;
 
 //Temp init
-int T_meas = 0;
+long T_meas = 0;
 
 // Entry point
 int main( void )
 {
   //TODO; remove (for testing)
   //srand(time(NULL));
+  MAX_ERROR = 50*Kd+CAPACITY*Ki+Kp;
   
   // Stop watchdog timer to prevent time out reset
   WDTCTL = WDTPW + WDTHOLD;

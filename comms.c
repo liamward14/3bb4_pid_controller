@@ -1,6 +1,7 @@
 #include "comms.h"
 #include "pid.h"
 #include "io430.h"
+#include "measure.h"
 
 /*Interrupt for MATLAB PID Gain update*/
 #pragma vector = USCIAB0RX_VECTOR
@@ -25,6 +26,7 @@ __interrupt void USCIRX_ISR(void){ //ISR triggered when character recieved
     Ki = Ki + (gc() << 8);
     Kd = gc();
     Kd = Kd + (gc() << 8);
+    MAX_ERROR = 50*Kd+CAPACITY*Ki+Kp;
   }
   else if(read == SETPOINT_UPDATE){
     set_point = gc();
@@ -82,7 +84,15 @@ void setup_interrupt_capability(void){
   
   //For testing w/ LED
   P1DIR_bit.P0 = 1; //green
+  P1DIR_bit.P6 = 1; //enable output p1.1
+  P1DIR_bit.P7 = 1; //enable output p1.2
   P1OUT_bit.P0 = 0; //init off
+  
+  P1OUT_bit.P6  = 1;
+  P1OUT_bit.P6 = 0;
+  
+  P1OUT_bit.P7  = 1;
+  P1OUT_bit.P7 = 0;
   
   //enable interrupts in general
   __enable_interrupt();

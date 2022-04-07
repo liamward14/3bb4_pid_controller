@@ -30,7 +30,6 @@ void pid_controller_loop(void){
   if(ready_to_write){ 
     for(int i=0;i<sizeof(T_meas);i++){
       read = T_meas >> (i*8);
-      //pc(T_meas >> (i*8));
       pc(read);
     }
     ready_to_write = 0;
@@ -53,15 +52,26 @@ void pid_controller_loop(void){
   // Determine Derivative term
   de = Kd*derivative();
   
+  // Set the thermoelectric cooler in proper direction
+  if(error >= 0){ //should be heating
+    IN1 = 0;
+    IN2 = 1;
+  }
+  else{ //should be cooling
+    IN1 = 1;
+    IN2 = 0;
+  }
+  
   // Effect change on thermocooler with PWM interface
   error = pe + ie + de;
+  error /= 50000.0;
   
-  // TODO pwm
-
+  // TODO test PWM
+  
+  change_duty_cycle((int)(100.0*(error / (float)MAX_ERROR)));
 }
 
 float derivative(void){
-  //TODO
   // User centered difference approach of past error values
   // Take derivative of last 'y' points where y == TODO
  
@@ -69,7 +79,7 @@ float derivative(void){
   if(!read_buff[CAPACITY-3]){ return 0; }
   
   // TODO: Measure the time between T_meas samples
-  float sample_time = 0.001; //TODO determine proper
+  float sample_time = 0.029; //TODO determine proper
   
   float DT_meas = 0;
   DT_meas = (read_buff[CAPACITY-3]-read_buff[CAPACITY-1])/(2*sample_time);

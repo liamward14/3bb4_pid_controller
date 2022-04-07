@@ -45,7 +45,7 @@ float avg_buffer(int* v){
   return a;
 }
 
-int convert_temp(float meas){
+long convert_temp(float meas){
   // Tested
   /* Apply calibration curve to convert ADC value->voltage->Temperature */
   
@@ -69,7 +69,7 @@ int convert_temp(float meas){
   /* Return temperature value */
   //TODO: remove testing code
   //return temp_i;
-  return (int)(temp*1000);
+  return (long)(temp*1000.0);
 
 }
 
