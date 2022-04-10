@@ -30,7 +30,6 @@ void read_ADC10(int* v);
 float avg_buffer(int* v);
 long convert_temp(float meas); //Convert ADC measurements -> voltage -> temperature
 
-//Read / Access subroutines
 
 
 #endif

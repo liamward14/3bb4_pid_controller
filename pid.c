@@ -3,9 +3,8 @@
 #include "comms.h"
 
 void pid_controller_loop(void){
-  //TODO: adjust signal via (kp*e+kd*del_T/del+ki*int(e,0,t)
+  //Tdjust signal via (kp*e+kd*del_T/del+ki*int(e,0,t)
   //The error signal: e = T_s - Tprime(t) (T_s from matlab, Tprime from ADC)
-  //Note: Could translate T_s into 8-bit char BEFORe transmission
   //Note: if e<0 -> reverse current (H-bridge)
   //Note: de/dt = (dTs-Tprime)/dt = -del_Tprime/del_t
   //Note: average a few of the finite difference derivative points to get less jittery control
@@ -16,14 +15,6 @@ void pid_controller_loop(void){
   
   // Next, average the read-in values & apply calibration
   T_meas = convert_temp(avg_buffer(temp_read_buff));
-  
-  //Assign byte to negative indication
-  //char neg = 0x0;
-  //if(T_meas < 0){ return; }
-  //pc(neg);
-  
-  //Transmit absolute value of T_meas
-  //T_meas = abs(T_meas);
   
   /* Send 2 bytes corresponding to 16 bit int storing temp in milli deg C if MATLAB is ready */
   char read;
@@ -66,20 +57,18 @@ void pid_controller_loop(void){
   error = pe + ie + de;
   error /= 50000.0;
   
-  // TODO test PWM
-  
+  // Effect change on system with PWM on enable pin of H-bridge
   change_duty_cycle((int)(100.0*(error / (float)MAX_ERROR)));
 }
 
 float derivative(void){
   // User centered difference approach of past error values
-  // Take derivative of last 'y' points where y == TODO
+  // Take derivative of last 'y' points where y == 3
  
   //Check if enough data is present
   if(!read_buff[CAPACITY-3]){ return 0; }
   
-  // TODO: Measure the time between T_meas samples
-  float sample_time = 0.029; //TODO determine proper
+  float sample_time = 0.029;
   
   float DT_meas = 0;
   DT_meas = (read_buff[CAPACITY-3]-read_buff[CAPACITY-1])/(2*sample_time);
@@ -89,7 +78,6 @@ float derivative(void){
 }
 
 int integral(void){ //return milliC
-  //TODO: test
   // Take integral of the stored error functions
 
   int Int_meas = 0;
@@ -101,7 +89,6 @@ int integral(void){ //return milliC
 }
 
 void circshift_single_insert(float* array, int element, int size){
-    //TODO: test
 
   //iterate from 0-(length-2)
   for(int i=0;i<size-1;i++){

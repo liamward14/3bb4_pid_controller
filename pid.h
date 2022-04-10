@@ -6,7 +6,6 @@
 #include "io430.h"
 
 
-//#define MAX_ERROR       100000
 #define IN1             P1OUT_bit.P6
 #define IN2             P1OUT_bit.P7
 

@@ -30,7 +30,6 @@ void config_PWM(void){
   
   // Note: Intialzing with 38.14% duty cycle
   
-  //TODO: test output with scope
 }
 
 // Scale TimerA pulse width to control PWM

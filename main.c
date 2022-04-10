@@ -11,7 +11,6 @@
 #include "pid.h"
 
 // Necessary external variable definitions
-//TODO: change
 int Kp = 10;
 int Ki = 0;
 int Kd = 0;
@@ -34,8 +33,7 @@ long T_meas = 0;
 // Entry point
 int main( void )
 {
-  //TODO; remove (for testing)
-  //srand(time(NULL));
+  /* Define init value of max error for pwm error scaling */
   MAX_ERROR = 50*Kd+CAPACITY*Ki+Kp;
   
   // Stop watchdog timer to prevent time out reset
@@ -58,7 +56,7 @@ int main( void )
   config_PWM();
   
   
-  //Run PID Loop TODO
+  //Run PID Loop 
   while(1){
     //run PID controller
     pid_controller_loop();

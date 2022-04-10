@@ -16,7 +16,6 @@ __interrupt void USCIRX_ISR(void){ //ISR triggered when character recieved
   char read = gc();
   
   if(read == READY){
-    //todo
     ready_to_write = 1;
   }
   else if(read == GAIN_UPDATE){
@@ -39,7 +38,6 @@ __interrupt void USCIRX_ISR(void){ //ISR triggered when character recieved
 
 /* UART Setup function for Serial Bus communication */
 void UART_setup(void){
-  // TODO
   //Configure P1 pins for serial communications
   P1SEL = 0x06;
   P1SEL2 = 0x06;
@@ -61,7 +59,6 @@ void UART_setup(void){
 
 /*Send 8 bits in 1 char transmissins per "sample" (i.e. ignore 2 LSB)*/
 void send_ADC10_samples(unsigned short* buff, unsigned char samples){
-  //TODO
   for(int i=0;i<samples;i++){
     //Send stored ADC10MEM >> 8 (ignore 2 LSB)
     pc(*(buff+i)>>2); //send 8 MSB (right shift)
