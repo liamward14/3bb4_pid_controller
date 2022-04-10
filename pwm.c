@@ -13,6 +13,7 @@ void config_PWM(void){
   P2SEL2_bit.P1 = 0;
   P2SEL_bit.P1 = 1;
   
+  
   //Select TimerA Mode w/ control registe(selct sub-main clock, 1 input divider & continuous count up
   // Note: continuous count up from 0 to TACCR0
   TA1CTL = TASSEL_2 + ID_0 + MC_2;
@@ -33,6 +34,11 @@ void config_PWM(void){
 }
 
 // Scale TimerA pulse width to control PWM
-void change_duty_cycle(char percentage){
-  TA1CCR0 = (((float)100-(float)percentage)/(float)100)*TAR_MAX;
+void change_duty_cycle(int percentage){
+  percentage = abs(percentage);
+  long p = (percentage*65520)/100;
+  if(p < 10){
+    p = 10;
+  }
+  TA1CCR0 = p;
 }

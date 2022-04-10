@@ -17,41 +17,69 @@ void pid_controller_loop(void){
   // Next, average the read-in values & apply calibration
   T_meas = convert_temp(avg_buffer(temp_read_buff));
   
-  /* Send 2 bytes corresponding to 16 bit int storing temp in milli deg C */
-  for(int i=0;i<sizeof(T_meas);i++){
-    pc(T_meas >> (i*8));
+  //Assign byte to negative indication
+  //char neg = 0x0;
+  //if(T_meas < 0){ return; }
+  //pc(neg);
+  
+  //Transmit absolute value of T_meas
+  //T_meas = abs(T_meas);
+  
+  /* Send 2 bytes corresponding to 16 bit int storing temp in milli deg C if MATLAB is ready */
+  char read;
+  if(ready_to_write){ 
+    for(int i=0;i<sizeof(T_meas);i++){
+      read = T_meas >> (i*8);
+      pc(read);
+    }
+    ready_to_write = 0;
   }
   
-  /* Store measured temperature (milliC) in storage array */
-  circshift_single_insert(temp_read_buff, T_meas, CAPACITY);
 
-/*
   
   // Define the error signal
-  error = set_point - T_meas;
+  error = (set_point*1000) - (float)T_meas;
   
+  /* Store measured temperature (milliC) in storage array */
+  circshift_single_insert(read_buff, error, CAPACITY);
+    
   // Determine Proportional term
   pe = Kp*error;
   
   // Determine Integral term
-  ie = integral()*error;
+  ie = Ki*(float)integral();
   
   // Determine Derivative term
-  de = derivative*error;
+  de = Kd*derivative();
+  
+  // Set the thermoelectric cooler in proper direction
+  if(error >= 0){ //should be heating
+    IN1 = 0;
+    IN2 = 1;
+  }
+  else{ //should be cooling
+    IN1 = 1;
+    IN2 = 0;
+  }
   
   // Effect change on thermocooler with PWM interface
-  // TODO
-*/
+  error = pe + ie + de;
+  error /= 50000.0;
+  
+  // TODO test PWM
+  
+  change_duty_cycle((int)(100.0*(error / (float)MAX_ERROR)));
 }
 
 float derivative(void){
-  //TODO
   // User centered difference approach of past error values
   // Take derivative of last 'y' points where y == TODO
  
-  // Initialize DT_meas
+  //Check if enough data is present
+  if(!read_buff[CAPACITY-3]){ return 0; }
+  
   // TODO: Measure the time between T_meas samples
-  float sample_time = 0.001;
+  float sample_time = 0.029; //TODO determine proper
   
   float DT_meas = 0;
   DT_meas = (read_buff[CAPACITY-3]-read_buff[CAPACITY-1])/(2*sample_time);
@@ -60,7 +88,7 @@ float derivative(void){
 
 }
 
-short integral(void){
+int integral(void){ //return milliC
   //TODO: test
   // Take integral of the stored error functions
 
@@ -72,7 +100,7 @@ short integral(void){
   return Int_meas;
 }
 
-void circshift_single_insert(int* array, int element, int size){
+void circshift_single_insert(float* array, int element, int size){
     //TODO: test
 
   //iterate from 0-(length-2)

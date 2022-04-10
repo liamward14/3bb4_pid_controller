@@ -11,14 +11,17 @@
 #include "pid.h"
 
 // Necessary external variable definitions
-short Kp = 0;
-short Ki = 0;
-short Kd = 0;
-short pe = 0;
-short ie = 0;
-short de = 0;
+//TODO: change
+int Kp = 10;
+int Ki = 0;
+int Kd = 0;
+float pe = 0;
+float ie = 0;
+float de = 0;
 float set_point = 30;
 float error = 0;
+uint8_t ready_to_write = 0;
+int MAX_ERROR = 0; 
 
 // To store values for integration and diffrentiation
 float read_buff[CAPACITY] = {0}; //Init with all zeros
@@ -26,13 +29,14 @@ int temp_read_buff[N_POINTS] = {0};// ""
 int index = 0;
 
 //Temp init
-int T_meas = 0;
+long T_meas = 0;
 
 // Entry point
 int main( void )
 {
   //TODO; remove (for testing)
   //srand(time(NULL));
+  MAX_ERROR = 50*Kd+CAPACITY*Ki+Kp;
   
   // Stop watchdog timer to prevent time out reset
   WDTCTL = WDTPW + WDTHOLD;
@@ -56,20 +60,9 @@ int main( void )
   
   //Run PID Loop TODO
   while(1){
-    //TODO: run PID controller
-    //TODO: Transmit 'N' samples
-    //pid_controller_loop();
-    
-    //read_buff[i];
-    
-    for (int i = 0; i < CAPACITY; ++i){
-    read_buff[i] = i;
+    //run PID controller
+    pid_controller_loop();
   }
-    derivative();
-    integral();
-    
-  }
-  
   return 0;
 }
 
